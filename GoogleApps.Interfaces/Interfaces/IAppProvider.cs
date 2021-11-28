@@ -1,16 +1,13 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 using GoogleApps.Interfaces.Entities;
 
 namespace GoogleApps.Interfaces.Interfaces
 {
-    public interface IAppEFRepository
+    public interface IAppProvider
     {
-        Task InsertApp(App app);
-        App ReadAppByGuid(Guid guid);
+        Task RegisterApp(App app);
+        App GetAppByGuid(Guid guid);
         Task UpdateApp(App app);
-
     }
 }

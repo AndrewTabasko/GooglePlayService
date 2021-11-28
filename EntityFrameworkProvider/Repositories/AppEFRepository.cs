@@ -1,6 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Threading.Tasks;
 using GoogleApps.Interfaces.Entities;
 using GoogleApps.Interfaces.Interfaces;
@@ -8,7 +7,7 @@ using Npgsql;
 
 namespace EntityFrameworkProvider.Repositories
 {
-    public class AppEFRepository : IAppEFReposytory
+    public class AppEFRepository : IAppEFRepository
     {
         private readonly AppsDataContext context;
         public AppEFRepository(AppsDataContext context)
@@ -22,7 +21,7 @@ namespace EntityFrameworkProvider.Repositories
                 await context.Apps.AddAsync(app);
                 await context.SaveChangesAsync();
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 throw new ApplicationException(e.Message);
             }
@@ -30,12 +29,27 @@ namespace EntityFrameworkProvider.Repositories
 
         public App ReadAppByGuid(Guid guid)
         {
-            return context.Apps.FirstOrDefaultAsync(app => app.Guid)
+            try
+            {
+                return context.Apps.FirstOrDefault(app => app.Guid.Equals(guid));
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(e.Message);
+            }
         }
 
-        public Task UpdateApp(App app)
+        public async Task UpdateApp(App app)
         {
-            throw new NotImplementedException();
+            try
+            {
+                context.Apps.Update(app);
+                await context.SaveChangesAsync();
+            }
+            catch (Exception e)
+            {
+                throw new ApplicationException(e.Message);
+            }
         }
     }
 }

@@ -1,5 +1,4 @@
-﻿
-using GoogleApps.Interfaces.Entities;
+﻿using GoogleApps.Interfaces.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace EntityFrameworkProvider

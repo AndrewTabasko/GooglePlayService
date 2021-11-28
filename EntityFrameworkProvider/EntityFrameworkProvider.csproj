@@ -12,8 +12,4 @@
     <ProjectReference Include="..\GoogleApps.Interfaces\GoogleApps.Interfaces.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Providers\" />
-  </ItemGroup>
-
 </Project>
