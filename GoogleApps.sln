@@ -9,9 +9,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleApps.Agent", "GoogleP
 EndProject
 Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "GoogleApps.Database", "GoogleApps\GoogleApps.Database.sqlproj", "{249C27C9-F78E-4AE7-BE2E-6DE2ECA78BAB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EntityFrameworkProvider", "EntityFrameworkProvider\EntityFrameworkProvider.csproj", "{6BBCE966-915A-43F6-BD67-0337FDAB197D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EntityFrameworkProvider", "EntityFrameworkProvider\EntityFrameworkProvider.csproj", "{6BBCE966-915A-43F6-BD67-0337FDAB197D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GoogleApps.Interfaces", "GoogleApps.Interfaces\GoogleApps.Interfaces.csproj", "{DB02CF7A-2706-4F81-9760-A2EAE63B3647}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GoogleApps.Interfaces", "GoogleApps.Interfaces\GoogleApps.Interfaces.csproj", "{DB02CF7A-2706-4F81-9760-A2EAE63B3647}"
+EndProject
+Project("{E53339B2-1760-4266-BCC7-CA923CBCF16C}") = "docker-compose", "docker-compose.dcproj", "{30254C07-ABE1-419E-B5F9-EE014A32587F}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,6 +43,10 @@ Global
 		{DB02CF7A-2706-4F81-9760-A2EAE63B3647}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DB02CF7A-2706-4F81-9760-A2EAE63B3647}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DB02CF7A-2706-4F81-9760-A2EAE63B3647}.Release|Any CPU.Build.0 = Release|Any CPU
+		{30254C07-ABE1-419E-B5F9-EE014A32587F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{30254C07-ABE1-419E-B5F9-EE014A32587F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{30254C07-ABE1-419E-B5F9-EE014A32587F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{30254C07-ABE1-419E-B5F9-EE014A32587F}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

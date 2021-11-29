@@ -1,0 +1,14 @@
+﻿syntax = "proto3";
+
+option csharp_namespace = "GoogleApps.Backned";
+
+package appId;
+
+service IdSender
+{
+	rpc SendId () return (IdMessage)
+}
+message IdMessage
+{
+	string guid = 1;
+}

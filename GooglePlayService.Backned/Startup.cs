@@ -1,15 +1,15 @@
 using EntityFrameworkProvider;
 using EntityFrameworkProvider.Providers;
+using EntityFrameworkProvider.Repositories;
 using GoogleApps.Interfaces.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
-namespace GooglePlayService.Backned
+namespace GoogleApps.Backned
 {
     public class Startup
     {
@@ -22,8 +22,16 @@ namespace GooglePlayService.Backned
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("" /*connectionString */ )));
+            services.AddControllers();
+
+            #region DB
+            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DBApps")));
+            #endregion
+
+            services.AddTransient<IAppEFRepository, AppEFRepository>();
             services.AddTransient<IAppProvider, AppProvider>();
+
+            services.AddGrpc();
         }
 
 
@@ -31,17 +39,15 @@ namespace GooglePlayService.Backned
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
+                app.UseDeveloperExceptionPage();//
             }
 
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-                /*endpoints.MapGet("/", async context =>
-                {
-                    await context.Response.WriteAsync("Hello World!");
-                });*/
+                endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapControllers();
             });
         }
     }

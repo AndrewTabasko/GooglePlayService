@@ -14,11 +14,11 @@ namespace GoogleApps.Backned
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class AppLinkController : ControllerBase
+    public class AppDetailsController : ControllerBase
     {
         private readonly IAppProvider appProvider;
 
-        public AppLinkController(IAppProvider appProvider)
+        public AppDetailsController(IAppProvider appProvider)
         {
             this.appProvider = appProvider;
         }
