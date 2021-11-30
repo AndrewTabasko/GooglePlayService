@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  googleapps.backned:
+    image: ${DOCKER_REGISTRY-}googleappsbackned
+    build:
+      context: .
+      dockerfile: GooglePlayService.Backned/Dockerfile
