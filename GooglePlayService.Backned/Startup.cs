@@ -1,3 +1,4 @@
+using System;
 using EntityFrameworkProvider;
 using EntityFrameworkProvider.Providers;
 using EntityFrameworkProvider.Repositories;
@@ -29,9 +30,11 @@ namespace GoogleApps.Backned
             #endregion
 
             services.AddTransient<IAppEFRepository, AppEFRepository>();
-            services.AddTransient<IAppProvider, AppProvider>();
+            services.AddTransient<IAppDbProvider, AppDbProvider>();
 
             services.AddGrpc();
+
+            services.AddGrpcClient<AppDetails.AppDetailsClient>(Configuration.GetSection("GrpcUri").Value);
         }
 
 
@@ -46,7 +49,7 @@ namespace GoogleApps.Backned
 
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapGrpcService<GreeterService>();
+                
                 endpoints.MapControllers();
             });
         }

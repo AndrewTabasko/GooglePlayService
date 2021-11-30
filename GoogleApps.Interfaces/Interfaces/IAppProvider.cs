@@ -4,7 +4,7 @@ using GoogleApps.Interfaces.Entities;
 
 namespace GoogleApps.Interfaces.Interfaces
 {
-    public interface IAppProvider
+    public interface IAppDbProvider
     {
         Task RegisterApp(App app);
         App GetAppByGuid(Guid guid);

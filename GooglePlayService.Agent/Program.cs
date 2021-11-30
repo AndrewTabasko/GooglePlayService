@@ -7,7 +7,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 
-namespace GooglePlayService.Agent
+namespace GoogleApps.Agent
 {
     public class Program
     {

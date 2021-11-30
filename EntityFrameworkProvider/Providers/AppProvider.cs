@@ -5,11 +5,11 @@ using GoogleApps.Interfaces.Interfaces;
 
 namespace EntityFrameworkProvider.Providers
 {
-    public class AppProvider : IAppProvider
+    public class AppDbProvider : IAppDbProvider
     {
         private readonly IAppEFRepository repository;
 
-        public AppProvider(IAppEFRepository repository)
+        public AppDbProvider(IAppEFRepository repository)
         {
             this.repository = repository;
         }
