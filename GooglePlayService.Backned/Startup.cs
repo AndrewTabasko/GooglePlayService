@@ -27,14 +27,14 @@ namespace GoogleApps.Backned
 
             #region DB
             services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DBApps")));
-            #endregion
-
             services.AddTransient<IAppEFRepository, AppEFRepository>();
             services.AddTransient<IAppDbProvider, AppDbProvider>();
+            #endregion
 
+            #region Grpc
             services.AddGrpc();
-
             services.AddGrpcClient<AppDetails.AppDetailsClient>(Configuration.GetSection("GrpcUri").Value);
+            #endregion
         }
 
 
@@ -49,7 +49,7 @@ namespace GoogleApps.Backned
 
             app.UseEndpoints(endpoints =>
             {
-                
+
                 endpoints.MapControllers();
             });
         }

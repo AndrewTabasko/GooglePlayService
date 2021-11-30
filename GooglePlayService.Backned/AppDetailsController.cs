@@ -13,9 +13,9 @@ namespace GoogleApps.Backned
     public class AppDetailsController : ControllerBase
     {
         private readonly IAppDbProvider appDbProvider;
-        private readonly AppDetails.AppDetailsClient grpcClient;
+        private readonly Greeter.GreeterClient grpcClient;
 
-        public AppDetailsController(IAppDbProvider appProvider, AppDetails.AppDetailsClient grpcClient)
+        public AppDetailsController(IAppDbProvider appProvider, Greeter.GreeterClient grpcClient)
         {
             appDbProvider = appProvider;
             this.grpcClient = grpcClient;
@@ -27,7 +27,7 @@ namespace GoogleApps.Backned
         public async Task<IActionResult> SaveApp(string Url)
         {
             var guid = await SaveUrlDataToDb(Url);
-            await grpcClient.LoadAppDataAsync(new AppGuid 
+            await grpcClient.SayHelloAsync(new HelloRequest 
             {
                 Guid = guid.ToString()
             });
