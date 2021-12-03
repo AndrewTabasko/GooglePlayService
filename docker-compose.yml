@@ -1,8 +1,65 @@
 version: '3.4'
 
+
 services:
-  googleapps.backned:
-    image: ${DOCKER_REGISTRY-}googleappsbackned
+  google.apps.agent:
+    image: google_apps_agent
+    container_name: Google.App.Agent
     build:
       context: .
-      dockerfile: GooglePlayService.Backned/Dockerfile
+      dockerfile: GooglePlayService.Agent/Dockerfile
+      args:
+        DOTNET_BUILD_TARGET: Debug
+    depends_on:
+      - db
+      - google.play
+    volumes:
+      - $USERPROFILE\.aspnet\https:/certs
+      - $APPDATA\microsoft\UserSecrets:~/.microsoft/usersecrets
+    ports:
+      - 5001:443 
+  google.apps.backend:
+    image: google_apps_backend
+    container_name: Google.App.Backend
+    build:
+      context: .
+      dockerfile: GooglePlayService.Backend/Dockerfile
+      args:
+        DOTNET_BUILD_TARGET: Debug
+    depends_on:
+      - db
+      - google.play
+  google.play:
+    image: google-play
+    container_name: Google.Play.Api
+    build:
+      context: .
+      dockerfile: GooglePlayApi/Dockerfile
+    ports:
+      - 3000:3000
+  flyway:
+    image: flyway/flyway
+    command: -url=jdbc:postgresql://db:5432/AppsDb -user=root -password=root -connectRetries=60 migrate
+    volumes:
+     - ./GoogleApps.Database:/flyway/sql
+    depends_on:
+      - db
+  db:
+    container_name: pg_container
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_USER: root
+      POSTGRES_PASSWORD: root
+      POSTGRES_DB: AppsDb
+    ports:
+      - "5432:5432"
+  pgadmin:
+    container_name: pgadmin4_container
+    image: dpage/pgadmin4
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    ports:
+      - "5050:80"

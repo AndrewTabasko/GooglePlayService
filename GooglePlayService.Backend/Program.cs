@@ -6,8 +6,9 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Serilog;
 
-namespace GoogleApps.Backned
+namespace GoogleApps.Backend
 {
     public class Program
     {
@@ -21,6 +22,8 @@ namespace GoogleApps.Backned
                 .ConfigureWebHostDefaults(webBuilder =>
                 {
                     webBuilder.UseStartup<Startup>();
-                });
+                })
+            .UseSerilog((services, loggerConfiguration) => loggerConfiguration
+                    .ReadFrom.Configuration(services.Configuration));
     }
 }

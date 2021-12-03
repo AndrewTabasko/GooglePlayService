@@ -1,10 +1,11 @@
 using System;
-using EntityFrameworkProvider.Providers;
+using EntityFrameworkProvider;
 using EntityFrameworkProvider.Repositories;
 using GoogleApps.Agent.Refit;
 using GoogleApps.Interfaces.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -23,21 +24,22 @@ namespace GoogleApps.Agent
 
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddTransient<IAppEFRepository, AppEFRepository>();
-            services.AddTransient<IAppDbProvider, AppDbProvider>();
+            #region DB
+            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppsDb")));
+            services.AddTransient<IAppDbRepository, AppDbRepository>();
+            #endregion
 
-            services.AddRefitClient<IGoogleAppDetailsProvider>().ConfigureHttpClient(x => x.BaseAddress = new Uri(Configuration.GetSection("RefitConfig:Uri").Value));
-                        
+            #region Refit
+            services.AddRefitClient<IGoogleAppMetadataProvider>().ConfigureHttpClient(x => x.BaseAddress = new Uri(Configuration.GetSection("RefitConfig:Uri").Value));
+            #endregion
+
+            #region gRPC
             services.AddGrpc();
+            #endregion
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();
-            }
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>

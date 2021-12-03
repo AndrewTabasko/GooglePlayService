@@ -15,7 +15,7 @@ WORKDIR "/src/GooglePlayService.Backned"
 RUN dotnet build "GoogleApps.Backned.csproj" -c Release -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GoogleApps.Backned.csproj" -c Release -o /app/publish
+RUN dotnet publish "GoogleApps.Backned.csproj" -c Release -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app
