@@ -1,6 +1,5 @@
 using System;
 using EntityFrameworkProvider;
-using EntityFrameworkProvider.Providers;
 using EntityFrameworkProvider.Repositories;
 using GoogleApps.Interfaces.Interfaces;
 using Microsoft.AspNetCore.Builder;
@@ -8,9 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
 
-namespace GoogleApps.Backned
+namespace GoogleApps.Backend
 {
     public class Startup
     {
@@ -27,29 +25,22 @@ namespace GoogleApps.Backned
 
             #region DB
             services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DBApps")));
-            services.AddTransient<IAppEFRepository, AppEFRepository>();
-            services.AddTransient<IAppDbProvider, AppDbProvider>();
+            services.AddTransient<IAppDbRepository, AppDbRepository>();
             #endregion
 
             #region Grpc
             services.AddGrpc();
-            services.AddGrpcClient<AppDetails.AppDetailsClient>(Configuration.GetSection("GrpcUri").Value);
+            services.AddGrpcClient<Greeter.GreeterClient>(o => o.Address = new Uri(Configuration.GetSection("Grpc:Uri").Value)); 
             #endregion
         }
 
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
-            {
-                app.UseDeveloperExceptionPage();//
-            }
-
             app.UseRouting();
 
             app.UseEndpoints(endpoints =>
             {
-
                 endpoints.MapControllers();
             });
         }

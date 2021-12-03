@@ -3,16 +3,19 @@ using System.Linq;
 using System.Threading.Tasks;
 using GoogleApps.Interfaces.Entities;
 using GoogleApps.Interfaces.Interfaces;
-using Npgsql;
+using Microsoft.EntityFrameworkCore;
+using Serilog;
 
 namespace EntityFrameworkProvider.Repositories
 {
-    public class AppEFRepository : IAppEFRepository
+    public class AppDbRepository : IAppDbRepository
     {
         private readonly AppsDataContext context;
-        public AppEFRepository(AppsDataContext context)
+        private readonly ILogger logger;
+        public AppDbRepository(AppsDataContext context, ILogger logger)
         {
             this.context = context;
+            this.logger = logger;
         }
         public async Task InsertApp(App app)
         {
@@ -23,7 +26,7 @@ namespace EntityFrameworkProvider.Repositories
             }
             catch (Exception e)
             {
-                throw new ApplicationException(e.Message);
+                logger.Error(e.Message);
             }
         }
 
@@ -33,9 +36,9 @@ namespace EntityFrameworkProvider.Repositories
             {
                 return context.Apps.FirstOrDefault(app => app.Guid.Equals(guid));
             }
-            catch (Exception e)
+            catch
             {
-                throw new ApplicationException(e.Message);
+                return null;//log           
             }
         }
 
@@ -46,9 +49,9 @@ namespace EntityFrameworkProvider.Repositories
                 context.Apps.Update(app);
                 await context.SaveChangesAsync();
             }
-            catch (Exception e)
+            catch
             {
-                throw new ApplicationException(e.Message);
+                //log
             }
         }
     }

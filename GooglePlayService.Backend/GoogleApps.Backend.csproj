@@ -6,8 +6,8 @@
     <DockerComposeProjectPath>..\docker-compose.dcproj</DockerComposeProjectPath>
   </PropertyGroup>
 
-  <ItemGroup>
-	  <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
+	<ItemGroup>
+		<Protobuf Include="..\GoogleApps.Interfaces\Protos\greet.proto" ProtoRoot="..\GoogleApps.Interfaces" GrpcServices="Client" />
 	  <PackageReference Include="Google.Protobuf" Version="3.19.1" />
 	  <PackageReference Include="Grpc.AspNetCore" Version="2.40.0" />
 	  <PackageReference Include="Grpc.Core" Version="2.42.0" />
@@ -21,11 +21,15 @@
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="3.1.10" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
     <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="5.0.10" />
+    <PackageReference Include="Serilog.AspNetCore" Version="4.1.0" />
+    <PackageReference Include="Serilog.Extensions.Logging" Version="3.1.0" />
+    <PackageReference Include="Serilog.Sinks.Console" Version="4.0.1" />
     <PackageReference Include="System.Configuration.ConfigurationManager" Version="6.0.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\EntityFrameworkProvider\EntityFrameworkProvider.csproj" />
+    <ProjectReference Include="..\GoogleApps.Interfaces\GoogleApps.Interfaces.csproj" />
   </ItemGroup>
 
 

@@ -6,9 +6,9 @@ using Refit;
 
 namespace GoogleApps.Agent.Refit
 {
-    public interface IGoogleAppDetailsProvider
+    public interface IGoogleAppMetadataProvider
     {
         [Get("/api/apps/{query}/")]
-        string GetDetailApp(string query);
+        string AppMetadataRequestApi(string query);
     }
 }

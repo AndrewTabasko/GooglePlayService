@@ -3,23 +3,8 @@ using System.Collections.Generic;
 using System.Text;
 
 namespace GoogleApps.Interfaces.Entities
-{
-    public class Histogram
-    {
-        public int _1 { get; set; }
-        public int _2 { get; set; }
-        public int _3 { get; set; }
-        public int _4 { get; set; }
-        public int _5 { get; set; }
-    }
-
-    public class Feature
-    {
-        public string title { get; set; }
-        public string description { get; set; }
-    }
-
-    public class Root
+{    
+    public class AppMetadataDto
     {
         public string title { get; set; }
         public string description { get; set; }
@@ -70,6 +55,20 @@ namespace GoogleApps.Interfaces.Entities
         public List<Feature> features { get; set; }
         public string appId { get; set; }
         public string url { get; set; }
+    }
+    public class Histogram
+    {
+        public int _1 { get; set; }
+        public int _2 { get; set; }
+        public int _3 { get; set; }
+        public int _4 { get; set; }
+        public int _5 { get; set; }
+    }
+
+    public class Feature
+    {
+        public string title { get; set; }
+        public string description { get; set; }
     }
 
 }

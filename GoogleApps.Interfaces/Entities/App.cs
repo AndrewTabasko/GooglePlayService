@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace GoogleApps.Interfaces.Entities
 {
@@ -8,6 +9,7 @@ namespace GoogleApps.Interfaces.Entities
         {
             Guid = Guid.NewGuid();
         }
+        [Key]
         public Guid Guid { get; set; }
         public string Name { get; set; }
         public string GooglePlayId {get;set;}
