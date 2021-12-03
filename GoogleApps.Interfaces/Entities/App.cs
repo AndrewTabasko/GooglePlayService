@@ -7,15 +7,15 @@ namespace GoogleApps.Interfaces.Entities
     {
         public App()
         {
-            Guid = Guid.NewGuid();
+            guid = Guid.NewGuid();
         }
         [Key]
-        public Guid Guid { get; set; }
-        public string Name { get; set; }
-        public string GooglePlayId {get;set;}
-        public string Hl { get; set; }
-        public string Gl { get; set; }
-        public long Downloads { get; set; }
+        public Guid guid { get; set; }
+        public string name { get; set; }
+        public string googleplayid {get;set;}
+        public string hl { get; set; }
+        public string gl { get; set; }
+        public long downloads { get; set; }
 
     }
 }

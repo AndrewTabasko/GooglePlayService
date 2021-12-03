@@ -3,7 +3,6 @@ using System.Linq;
 using System.Threading.Tasks;
 using GoogleApps.Interfaces.Entities;
 using GoogleApps.Interfaces.Interfaces;
-using Microsoft.EntityFrameworkCore;
 using Serilog;
 
 namespace EntityFrameworkProvider.Repositories
@@ -21,7 +20,7 @@ namespace EntityFrameworkProvider.Repositories
         {
             try
             {
-                await context.Apps.AddAsync(app);
+                await context.apps.AddAsync(app);
                 await context.SaveChangesAsync();
             }
             catch (Exception e)
@@ -29,16 +28,16 @@ namespace EntityFrameworkProvider.Repositories
                 logger.Error(e.Message);
             }
         }
-
         public App ReadAppByGuid(Guid guid)
         {
             try
             {
-                return context.Apps.FirstOrDefault(app => app.Guid.Equals(guid));
+                return context.apps.FirstOrDefault(app => app.guid.Equals(guid));
             }
-            catch
+            catch (Exception e)
             {
-                return null;//log           
+                logger.Error(e.Message);
+                return null;
             }
         }
 
@@ -46,12 +45,12 @@ namespace EntityFrameworkProvider.Repositories
         {
             try
             {
-                context.Apps.Update(app);
+                context.apps.Update(app);
                 await context.SaveChangesAsync();
             }
-            catch
+            catch (Exception e)
             {
-                //log
+                logger.Error(e.Message);
             }
         }
     }

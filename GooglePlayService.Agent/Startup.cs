@@ -25,7 +25,7 @@ namespace GoogleApps.Agent
         public void ConfigureServices(IServiceCollection services)
         {
             #region DB
-            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DBApps")));
+            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppsDb")));
             services.AddTransient<IAppDbRepository, AppDbRepository>();
             #endregion
 
@@ -33,7 +33,7 @@ namespace GoogleApps.Agent
             services.AddRefitClient<IGoogleAppMetadataProvider>().ConfigureHttpClient(x => x.BaseAddress = new Uri(Configuration.GetSection("RefitConfig:Uri").Value));
             #endregion
 
-            #region Refit
+            #region gRPC
             services.AddGrpc();
             #endregion
         }

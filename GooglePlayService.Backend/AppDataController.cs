@@ -29,10 +29,12 @@ namespace GoogleApps.Backend
         public async Task<IActionResult> LoadAppData(string Url)
         {
             var guid = await SaveUrlDataToDb(Url);
-            await grpcClient.LoadAppMetadataAsync(new HelloRequest
+            var reply = await grpcClient.LoadAppMetadataAsync(new HelloRequest
             {
                 Guid = guid.ToString()
             });
+
+            logger.Information(reply.Message);
             return Ok();
         }
 
@@ -62,18 +64,29 @@ namespace GoogleApps.Backend
         {
             if ((Uri.TryCreate(Url, UriKind.RelativeOrAbsolute, out var uri) && (uri.Host.Equals("play.google.com"))))
             {
-                var query = uri.Query.Split('&');
+                var app = new App();
 
-                var app = new App()
+                var query = uri.Query[1..(uri.Query.Length-1)].Split('&');
+                foreach (var q in query)
                 {
-                    GooglePlayId = query[0].Substring(4),
-                    Hl = query[1],
-                    Gl = query[2]
-                };
-                var guid = app.Guid;
+                    switch (q)
+                    {
+                        case string hl when hl.StartsWith("hl="):
+                            app.hl = hl[3..(hl.Length - 3)];
+                            break;
 
+                        case string gl when gl.StartsWith("gl="):
+                            app.gl = gl[3..(gl.Length - 3)];
+                            break;
+
+                        case string id when id.StartsWith("id="):
+                            app.googleplayid = id[3..(id.Length - 3)];
+                            break;
+                    }
+                }
+                
                 await appDbRepository.InsertApp(app);
-                return guid;
+                return app.guid;
             }
             else
             {
@@ -81,5 +94,7 @@ namespace GoogleApps.Backend
                 throw new UriFormatException();
             }
         }
+
+
     }
 }

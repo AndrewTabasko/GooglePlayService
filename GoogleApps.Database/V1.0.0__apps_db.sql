@@ -1,10 +1,10 @@
-﻿CREATE TABLE AppsDb
+﻿CREATE TABLE Apps
 (
-	Guid UUID NOT NULL PRIMARY KEY,
-	Name varchar (100) null,
-	GooglePlayId varchar (100) not null,
-	Hl varchar (100) null,
-	Gl varchar (100) null,
-	Downloads bigint not null,
-	UNIQUE (GooglePlayId, Hl, Gl)
+	guid UUID NOT NULL PRIMARY KEY,
+	name varchar (100) null,
+	googleplayid varchar (100) not null,
+	hl varchar (100) null,
+	gl varchar (100) null,
+	downloads bigint not null,
+	UNIQUE (googleplayid, hl, gl)
 )

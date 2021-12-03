@@ -8,7 +8,7 @@ namespace GoogleApps.Agent.Refit
 {
     public interface IGoogleAppMetadataProvider
     {
-        [Get("/api/apps/{query}/")]
-        string AppMetadataRequestApi(string query);
+        [Get("/api/apps/{query}")]
+        Task<string> AppMetadataRequestApi(string query);// attribute query or path
     }
 }

@@ -13,6 +13,11 @@ services:
     depends_on:
       - db
       - google.play
+    volumes:
+      - $USERPROFILE\.aspnet\https:/certs
+      - $APPDATA\microsoft\UserSecrets:~/.microsoft/usersecrets
+    ports:
+      - 5001:443 
   google.apps.backend:
     image: google_apps_backend
     container_name: Google.App.Backend

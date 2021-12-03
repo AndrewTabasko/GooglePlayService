@@ -24,7 +24,7 @@ namespace GoogleApps.Backend
             services.AddControllers();
 
             #region DB
-            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DBApps")));
+            services.AddDbContextPool<AppsDataContext>(options => options.UseNpgsql(Configuration.GetConnectionString("AppsDb")));
             services.AddTransient<IAppDbRepository, AppDbRepository>();
             #endregion
 
