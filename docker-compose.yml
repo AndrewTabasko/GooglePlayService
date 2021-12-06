@@ -13,9 +13,11 @@ services:
     depends_on:
       - db
       - google.play
+    environment:
+      - ASPNETCORE_URLS=https://+:443/
+      - ASPNETCORE_ENVIRONMENT=Docker
     volumes:
-      - $USERPROFILE\.aspnet\https:/certs
-      - $APPDATA\microsoft\UserSecrets:~/.microsoft/usersecrets
+      - C:\Users\andre\.aspnet\https:/root/.aspnet/https/:ro
     ports:
       - 5001:443 
   google.apps.backend:
