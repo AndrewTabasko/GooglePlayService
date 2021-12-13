@@ -13,9 +13,14 @@ services:
     depends_on:
       - db
       - google.play
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Docker
+      - ASPNETCORE_URLS=https://+:443
+      - ASPNETCORE_HTTPS_PORT=5001
+      - ASPNETCORE_Kestrel__Certificates__Default__Password=crypticpassword
+      - ASPNETCORE_Kestrel__Certificates__Default__Path=/certs/GoogleApps.Agent.pfx
     volumes:
-      - $USERPROFILE\.aspnet\https:/certs
-      - $APPDATA\microsoft\UserSecrets:~/.microsoft/usersecrets
+      - C:\Users\andre\.aspnet\https:/certs
     ports:
       - 5001:443 
   google.apps.backend:

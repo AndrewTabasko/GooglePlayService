@@ -16,7 +16,7 @@ namespace GoogleApps.Interfaces.Entities
         public double score { get; set; }
         public string scoreText { get; set; }
         public int ratings { get; set; }
-        public int reviews { get; set; }
+        public string reviews { get; set; }
         public Histogram histogram { get; set; }
         public int price { get; set; }
         public bool free { get; set; }
@@ -27,7 +27,7 @@ namespace GoogleApps.Interfaces.Entities
         public string size { get; set; }
         public string androidVersion { get; set; }
         public string androidVersionText { get; set; }
-        public string developer { get; set; }
+        public Developer developer { get; set; }
         public string developerId { get; set; }
         public string developerEmail { get; set; }
         public string developerWebsite { get; set; }
@@ -55,6 +55,13 @@ namespace GoogleApps.Interfaces.Entities
         public List<Feature> features { get; set; }
         public string appId { get; set; }
         public string url { get; set; }
+    }
+
+    public class Developer
+    {
+        public string devId { get; set; }
+        public string url { get; set; }
+
     }
     public class Histogram
     {

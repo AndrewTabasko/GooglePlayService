@@ -66,21 +66,21 @@ namespace GoogleApps.Backend
             {
                 var app = new App();
 
-                var query = uri.Query[1..(uri.Query.Length-1)].Split('&');
+                var query = uri.Query.Split('&');
                 foreach (var q in query)
                 {
                     switch (q)
                     {
                         case string hl when hl.StartsWith("hl="):
-                            app.hl = hl[3..(hl.Length - 3)];
+                            app.hl = hl.Trim("hl=".ToCharArray());
                             break;
 
                         case string gl when gl.StartsWith("gl="):
-                            app.gl = gl[3..(gl.Length - 3)];
+                            app.gl = gl.Trim("gl=".ToCharArray());
                             break;
 
-                        case string id when id.StartsWith("id="):
-                            app.googleplayid = id[3..(id.Length - 3)];
+                        case string id when id.StartsWith("?id="):
+                            app.googleplayid = id.Trim("?id=".ToCharArray());
                             break;
                     }
                 }
