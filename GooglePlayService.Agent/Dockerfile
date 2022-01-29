@@ -13,10 +13,10 @@ COPY ["GoogleApps.Interfaces/GoogleApps.Interfaces.csproj", "GoogleApps.Interfac
 RUN dotnet restore "GooglePlayService.Agent/GoogleApps.Agent.csproj"
 COPY . .
 WORKDIR "/src/GooglePlayService.Agent"
-RUN dotnet build "GoogleApps.Agent.csproj" -c Release -o /app/build
+RUN dotnet build "GoogleApps.Agent.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GoogleApps.Agent.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "GoogleApps.Agent.csproj" -c Debug -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app

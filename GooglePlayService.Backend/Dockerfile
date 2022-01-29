@@ -13,10 +13,10 @@ COPY ["EntityFrameworkProvider/EntityFrameworkProvider.csproj", "EntityFramework
 RUN dotnet restore "GooglePlayService.Backend/GoogleApps.Backend.csproj"
 COPY . .
 WORKDIR "/src/GooglePlayService.Backend"
-RUN dotnet build "GoogleApps.Backend.csproj" -c Release -o /app/build
+RUN dotnet build "GoogleApps.Backend.csproj" -c Debug -o /app/build
 
 FROM build AS publish
-RUN dotnet publish "GoogleApps.Backend.csproj" -c Release -o /app/publish --no-restore
+RUN dotnet publish "GoogleApps.Backend.csproj" -c Debug -o /app/publish --no-restore
 
 FROM base AS final
 WORKDIR /app

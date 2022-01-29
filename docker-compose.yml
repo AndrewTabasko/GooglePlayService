@@ -34,6 +34,8 @@ services:
     depends_on:
       - db
       - google.play
+    ports:
+      - 5000:80
   google.play:
     image: google-play
     container_name: Google.Play.Api
@@ -43,6 +45,7 @@ services:
     ports:
       - 3000:3000
   flyway:
+    container_name: flyway
     image: flyway/flyway
     command: -url=jdbc:postgresql://db:5432/AppsDb -user=root -password=root -connectRetries=60 migrate
     volumes:
@@ -50,7 +53,7 @@ services:
     depends_on:
       - db
   db:
-    container_name: pg_container
+    container_name: PgDb
     image: postgres
     restart: always
     environment:
@@ -60,7 +63,7 @@ services:
     ports:
       - "5432:5432"
   pgadmin:
-    container_name: pgadmin4_container
+    container_name: PgAdmin
     image: dpage/pgadmin4
     restart: always
     environment:
